@@ -53,3 +53,9 @@ namespace EFCoreDemo.Api.Entitys
 }
 ```
 ![图片](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657719224369.jpg)
+### 4. 用终端打开 输入下面三条，即可完成CodeFirst
+```bash
+dotnet tool install --global dotnet-ef   //全局安装
+dotnet ef migrations add init            //数据库迁移日志文件
+dotnet ef database update                //创建TestDB 数据库 并为实体类User 创建Users表
+```
