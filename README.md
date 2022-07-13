@@ -121,4 +121,6 @@ namespace EFCoreDemo.Api.Entitys
 ![EFCoreDemoContext](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657725008880.jpg)
 ![EFCoreDemoContext](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657725115450.jpg)
 ![EFCoreDemoContext](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657725301430.jpg)
-
+## 2.通过 数据库表来生成 实体类（DBFirst）
+```bash
+```
