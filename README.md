@@ -131,3 +131,5 @@ dotnet ef dbcontext scaffold "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456"
 ```bash
 scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsoft.EntityFrameworkCore.SqlServer" -o Models222
 ```
+![VS_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657726925075.jpg)
+![VS_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657727080337.jpg)
