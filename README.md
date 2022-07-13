@@ -74,3 +74,8 @@ dotnet ef database update                //创建TestDB 数据库 并为实体�
         public int Age { get; set; }
     }
 ```
+
+![修改](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657723726666.jpg)
+![修改](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657723819585.jpg)
+
+
