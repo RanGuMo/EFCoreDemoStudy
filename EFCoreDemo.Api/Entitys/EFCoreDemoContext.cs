@@ -8,7 +8,7 @@ namespace EFCoreDemo.Api.Entitys
 {
     public class EFCoreDemoContext : DbContext
     {
-        public DbSet<User> Users { get; set; } //将实体类User映射为 Users数据库表
+        //public DbSet<User> Users { get; set; } //将实体类User映射为 Users数据库表（在OnModelCreating中配置的话，可以不用写这个）
         public EFCoreDemoContext()
         {
             
@@ -24,6 +24,13 @@ namespace EFCoreDemo.Api.Entitys
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //表名为UserList，架构为EFCoreDemo。（不写这个，默认是表名字是User，架构在sqlserver为dbo）
+            modelBuilder.Entity<User>().ToTable("UserList","EFCoreDemo");
+            modelBuilder.Entity<User>().Property(m=>m.UserName)
+            .IsRequired()
+            .HasMaxLength(50)
+            .HasComment("用户名");//指定不为空，长度为50，注释为用户名
+
             base.OnModelCreating(modelBuilder);
         }
     }
