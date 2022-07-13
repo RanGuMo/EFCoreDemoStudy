@@ -61,3 +61,16 @@ dotnet ef database update                //创建TestDB 数据库 并为实体�
 ```
 ![终端](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657719688927.jpg)
 ![数据库](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657719614862.png)
+### 5.数据库字段的修改
+![Users](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657723416499.jpg)
+更改数据库的字段
+```C#
+  public class User
+    {
+        public int Id { get; set; }
+        [Required]
+        [MaxLength(25)]
+        public string UserName { get; set; }
+        public int Age { get; set; }
+    }
+```
