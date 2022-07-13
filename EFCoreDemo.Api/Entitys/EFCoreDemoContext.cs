@@ -24,13 +24,21 @@ namespace EFCoreDemo.Api.Entitys
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //写法一：
             //表名为UserList，架构为EFCoreDemo。（不写这个，默认是表名字是User，架构在sqlserver为dbo）
-            modelBuilder.Entity<User>().ToTable("UserList","EFCoreDemo");
-            modelBuilder.Entity<User>().Property(m=>m.UserName)
-            .IsRequired()
-            .HasMaxLength(50)
-            .HasComment("用户名");//指定不为空，长度为50，注释为用户名
-
+            // modelBuilder.Entity<User>().ToTable("UserList","EFCoreDemo");
+            // modelBuilder.Entity<User>().Property(m=>m.UserName)
+            // .IsRequired()
+            // .HasMaxLength(50)
+            // .HasComment("用户名");//指定不为空，长度为50，注释为用户名
+            //写法二：
+           modelBuilder.Entity<User>(m=>{
+                m.ToTable("Users");
+                m.Property(m=>m.UserName)
+                 .IsRequired()
+                 .HasMaxLength(50)
+                 .HasComment("用户名");
+           });
             base.OnModelCreating(modelBuilder);
         }
     }
