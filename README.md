@@ -59,3 +59,5 @@ dotnet tool install --global dotnet-ef   //全局安装
 dotnet ef migrations add init            //数据库迁移日志文件
 dotnet ef database update                //创建TestDB 数据库 并为实体类User 创建Users表
 ```
+![终端](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657719688927.jpg)
+![数据库](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657719614862.png)
