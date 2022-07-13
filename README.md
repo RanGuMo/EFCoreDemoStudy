@@ -122,9 +122,12 @@ namespace EFCoreDemo.Api.Entitys
 ![EFCoreDemoContext](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657725115450.jpg)
 ![EFCoreDemoContext](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657725301430.jpg)
 ## 2.通过 数据库表来生成 实体类（DBFirst）
-### 2.1 VSCode 中
+### 2.1 VSCode 中生成
 ```bash
 dotnet ef dbcontext scaffold "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsoft.EntityFrameworkCore.SqlServer" -o Models // -o 表示输出的路径
 ```
 ![VSCode_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657726657057.jpg)
-
+### 2.2 VS 中生成
+```bash
+scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsoft.EntityFrameworkCore.SqlServer" -o Models222
+```
