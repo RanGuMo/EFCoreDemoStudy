@@ -6,6 +6,10 @@ namespace EFCoreDemo.Api.Migrations
 {
     public partial class init : Migration
     {
+        /// <summary>
+        /// 迁移日志   关于Users 数据表的
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
