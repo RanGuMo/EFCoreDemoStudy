@@ -126,3 +126,5 @@ namespace EFCoreDemo.Api.Entitys
 ```bash
 dotnet ef dbcontext scaffold "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsoft.EntityFrameworkCore.SqlServer" -o Models // -o 表示输出的路径
 ```
+![VSCode_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657726657057.jpg)
+
