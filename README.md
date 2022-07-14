@@ -169,6 +169,34 @@ scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsof
 
     }
 ```
+### 3.3 全局单例 关闭跟踪
+```C#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using EFCoreDemo.Api.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace EFCoreDemo.Api.Factorys
+{
+    public class DbContextFactory
+    {
+        private static MyBBSContext _dbContext = null;
+        private DbContextFactory()
+        { 
+        }
+       public static MyBBSContext GetMyBBSContext(){
+           if(_dbContext==null){
+               _dbContext = new MyBBSContext();
+               _dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+           }
+           return _dbContext;
+       }
+    }
+}
+```
+
 ### 3.4 总结
 1.DBContext 不能单例
 2.默认是开启 跟踪的，最好 关闭跟踪（可提高性能）
