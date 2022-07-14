@@ -133,3 +133,11 @@ scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsof
 ```
 ![VS_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657726925075.jpg)
 ![VS_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657727080337.jpg)
+
+## 3.EFCore 跟踪
+1.DBContext 不能单例
+2.默认是开启 跟踪的，最好 关闭跟踪（可提高性能）
+3.开启跟踪时。无需update，只需执行SaveChanges()，就可以 将数据 更新到数据库中
+4.关闭跟踪后，不仅需要执行update，还需执行SaveChanges()，才可以 将数据 更新到数据库中（这里就是多了一步update，防止出错）
+
+
