@@ -135,20 +135,85 @@ scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsof
 ![VS_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657727080337.jpg)
 
 ## 3.EFCore 跟踪
+### 3.1 关闭跟踪（局部）（AsNoTracking()）
 ```C#
-  public User Get(string userName,string newName)
+ public User Get(string userName,string newName)
     {
+        #region  关闭跟踪
        using MyBBSContext context = new();
-      var user =  context.Users.AsNoTracking().FirstOrDefault(m=>m.UserName == userName); //关闭 EFCore 跟踪，并根据传入的值查询数据库
-      user.UserName = newName; //赋予新值
-      context.Users.Update(user); //关闭 EFCore 跟踪后，必须使用update，context.SaveChanges(); 才会保存进数据库中
-      context.SaveChanges();
-      return user;
+       var user =  context.Users.AsNoTracking().FirstOrDefault(m=>m.UserName == userName); //关闭 EFCore 跟踪，并根据传入的值查询数据库
+       user.UserName = newName; //赋予新值
+       context.Users.Update(user);//关闭 EFCore 跟踪后，必须使用update，context.SaveChanges(); 才会保存进数据库中
+    //   context.Users.Add(new User{
+    //       UserName = "Leo",
+    //       UserNo="1245"
+    //   });
+       context.SaveChanges();
+       return user;
+        #endregion
+    }
+```
+### 3.2 不关闭跟踪
+```C#
+   public User Get2(string userName,string newName)
+    {
+        #region  不关闭跟踪
+       using MyBBSContext context = new();
+       var user =  context.Users.FirstOrDefault(m=>m.UserName == userName);
+       user.UserName = newName; //赋予新值
+       //context.Users.Update(user);//不关闭跟踪，无需update 也可以将保存进数据库
+       context.SaveChanges();
+       return user;
+        #endregion
+       
 
     }
 ```
+### 3.3 全局单例 关闭跟踪
+```C#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using EFCoreDemo.Api.Models;
+using Microsoft.EntityFrameworkCore;
 
+namespace EFCoreDemo.Api.Factorys
+{
+    public class DbContextFactory
+    {
+        private static MyBBSContext _dbContext = null;
+        private DbContextFactory()
+        { 
+        }
+       public static MyBBSContext GetMyBBSContext(){
+           if(_dbContext==null){
+               _dbContext = new MyBBSContext();
+               _dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+           }
+           return _dbContext;
+       }
+    }
+}
+```
 
+#### 使用全局单例 
+```C#
+  [HttpGet("Get3")]
+      public User Get3(string userName,string newName)
+    {
+        #region  全局单例 关闭跟踪
+       var context = DbContextFactory.GetMyBBSContext();
+       var user =  context.Users.FirstOrDefault(m=>m.UserName == userName);
+       user.UserName = newName; //赋予新值
+       context.Users.Update(user);//关闭 EFCore 跟踪后，必须使用update，context.SaveChanges(); 才会保存进数据库中
+       context.SaveChanges();
+       return user;
+        #endregion
+    }
+```
+
+### 3.4 总结
 1.DBContext 不能单例
 2.默认是开启 跟踪的，最好 关闭跟踪（可提高性能）
 3.开启跟踪时。无需update，只需执行SaveChanges()，就可以 将数据 更新到数据库中
