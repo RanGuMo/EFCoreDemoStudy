@@ -64,5 +64,18 @@ public class WeatherForecastController : ControllerBase
         #endregion
     }
 
+      [HttpGet("GetAllOfPage")]
+      public IEnumerable<Post> GetAllOfPage(int pageIndex=1,int pageSize=30)
+    {
+         var context = DbContextFactory.GetMyBBSContext();
+          int skipNum = (pageIndex-1)*pageSize; //跳过的数量
+          var list = context.Posts.Skip(skipNum).Take(pageSize);//跳过多少条，然后再取页数
+          return list.ToList();  
+
+          //不要 向下面这样写  先写ToList（这里就是取出数据库中所有的数据再来分页了）数据量大会非常影响性能
+          // var list = context.Posts.ToList().Skip(skipNum).Take(pageSize);//跳过多少条，然后再取页数
+         //  return list;
+    }
+
 
 }
