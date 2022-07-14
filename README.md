@@ -122,9 +122,36 @@ namespace EFCoreDemo.Api.Entitys
 ![EFCoreDemoContext](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657725115450.jpg)
 ![EFCoreDemoContext](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657725301430.jpg)
 ## 2.通过 数据库表来生成 实体类（DBFirst）
-### 2.1 VSCode 中
+### 2.1 VSCode 中生成
 ```bash
 dotnet ef dbcontext scaffold "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsoft.EntityFrameworkCore.SqlServer" -o Models // -o 表示输出的路径
 ```
 ![VSCode_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657726657057.jpg)
+### 2.2 VS 中生成
+```bash
+scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsoft.EntityFrameworkCore.SqlServer" -o Models222
+```
+![VS_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657726925075.jpg)
+![VS_DBFirst](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657727080337.jpg)
+
+## 3.EFCore 跟踪
+```C#
+  public User Get(string userName,string newName)
+    {
+       using MyBBSContext context = new();
+      var user =  context.Users.AsNoTracking().FirstOrDefault(m=>m.UserName == userName); //关闭 EFCore 跟踪，并根据传入的值查询数据库
+      user.UserName = newName; //赋予新值
+      context.Users.Update(user); //关闭 EFCore 跟踪后，必须使用update，context.SaveChanges(); 才会保存进数据库中
+      context.SaveChanges();
+      return user;
+
+    }
+```
+
+
+1.DBContext 不能单例
+2.默认是开启 跟踪的，最好 关闭跟踪（可提高性能）
+3.开启跟踪时。无需update，只需执行SaveChanges()，就可以 将数据 更新到数据库中
+4.关闭跟踪后，不仅需要执行update，还需执行SaveChanges()，才可以 将数据 更新到数据库中（这里就是多了一步update，防止出错）
+
 
