@@ -197,6 +197,22 @@ namespace EFCoreDemo.Api.Factorys
 }
 ```
 
+#### 使用全局单例 
+```C#
+  [HttpGet("Get3")]
+      public User Get3(string userName,string newName)
+    {
+        #region  全局单例 关闭跟踪
+       var context = DbContextFactory.GetMyBBSContext();
+       var user =  context.Users.FirstOrDefault(m=>m.UserName == userName);
+       user.UserName = newName; //赋予新值
+       context.Users.Update(user);//关闭 EFCore 跟踪后，必须使用update，context.SaveChanges(); 才会保存进数据库中
+       context.SaveChanges();
+       return user;
+        #endregion
+    }
+```
+
 ### 3.4 总结
 1.DBContext 不能单例
 2.默认是开启 跟踪的，最好 关闭跟踪（可提高性能）
