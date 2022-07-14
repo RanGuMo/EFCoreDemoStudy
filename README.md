@@ -137,6 +137,7 @@ scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsof
 ## 3.EFCore 跟踪
 ### 3.1 关闭跟踪（局部）（AsNoTracking()）
 ```C#
+[HttpGet(Name = "GetWeatherForecast")]
  public User Get(string userName,string newName)
     {
         #region  关闭跟踪
@@ -155,6 +156,7 @@ scaffold-DbContext "server=127.0.0.1;database=MyBBS;uid=sa;pwd=123456" "Microsof
 ```
 ### 3.2 不关闭跟踪
 ```C#
+ [HttpGet("Get2")]
    public User Get2(string userName,string newName)
     {
         #region  不关闭跟踪
@@ -196,6 +198,7 @@ namespace EFCoreDemo.Api.Factorys
     }
 }
 ```
+![全局单例 关闭跟踪](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657804804747.jpg)
 
 #### 使用全局单例 
 ```C#
@@ -212,11 +215,13 @@ namespace EFCoreDemo.Api.Factorys
         #endregion
     }
 ```
+![全局单例 关闭跟踪](https://github.com/RanGuMo/EFCoreDemoStudy/blob/master/EFCoreDemo.Api/Images/1657804869873.jpg)
 
 ### 3.4 总结
+```bash
 1.DBContext 不能单例
 2.默认是开启 跟踪的，最好 关闭跟踪（可提高性能）
 3.开启跟踪时。无需update，只需执行SaveChanges()，就可以 将数据 更新到数据库中
 4.关闭跟踪后，不仅需要执行update，还需执行SaveChanges()，才可以 将数据 更新到数据库中（这里就是多了一步update，防止出错）
-
+```
 
